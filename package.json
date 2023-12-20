@@ -15,6 +15,7 @@
     "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "dayjs": "^1.11.10",
     "intl": "^1.2.5",
     "next": "14.0.4",
     "phosphor-react": "^1.4.1",
