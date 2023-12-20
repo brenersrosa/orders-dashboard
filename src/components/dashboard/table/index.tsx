@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 
@@ -27,8 +27,9 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
       [adsId]: currentMode === prevMode[adsId] ? null : currentMode,
     }))
   }
+
   return (
-    <div className="max-h-[540px] overflow-auto border border-zinc-600">
+    <div className="max-h-[80vh] overflow-auto border border-zinc-600 md:min-h-[80vh] lg:max-h-[540px]">
       <table className="w-full lg:min-w-[620px]">
         <thead className="top-0 bg-zinc-700">
           <tr className="bg-zinc-600">
@@ -145,8 +146,8 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
             const roi = ((profit / (totalCost + tax)) * 100).toFixed(1)
 
             return (
-              <>
-                <tr key={announcement.ads_id}>
+              <React.Fragment key={announcement.ads_id}>
+                <tr>
                   <td className="w-96 p-6">
                     <div className="flex flex-col items-start gap-2">
                       <Heading className="text-left">
@@ -494,7 +495,7 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
                         )
                       })
                     : null}
-              </>
+              </React.Fragment>
             )
           })}
         </tbody>
