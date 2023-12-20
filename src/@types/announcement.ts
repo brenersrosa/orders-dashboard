@@ -1,4 +1,4 @@
-interface OrderDetail {
+export interface OrderDetail {
   order_id: string
   sku: string
   name: string
@@ -22,7 +22,7 @@ interface OrderDetail {
   is_cancel: boolean
 }
 
-interface OrderGroup {
+export interface OrderGroup {
   order_id: string
   sku: string
   name: string
