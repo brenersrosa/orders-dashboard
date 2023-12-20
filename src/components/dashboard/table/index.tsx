@@ -29,32 +29,32 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
   }
   return (
     <div className="max-h-[540px] overflow-auto border border-zinc-600">
-      <table className="w-full min-w-[620px] table-auto border-collapse">
-        <thead className="sticky top-0 bg-zinc-700">
+      <table className="w-full lg:min-w-[620px]">
+        <thead className="top-0 bg-zinc-700">
           <tr className="bg-zinc-600">
-            <th className="w-96 p-4 text-left text-sm leading-relaxed text-zinc-200">
-              Anúncio
+            <th className="w-96 p-6 text-left">
+              <Heading size="xxs">Anúncio</Heading>
             </th>
-            <th className="w-56 p-4 text-left text-sm leading-relaxed text-zinc-200">
-              Vendas
+            <th className="p-6 text-left lg:w-56">
+              <Heading size="xxs">Vendas</Heading>
             </th>
-            <th className="w-56 p-4 text-left text-sm leading-relaxed text-zinc-200">
-              Descontos
+            <th className="p-6 text-left lg:w-56">
+              <Heading size="xxs">Descontos</Heading>
             </th>
-            <th className="w-72 p-4 text-left text-sm leading-relaxed text-zinc-200">
-              Custo
+            <th className="p-6 text-left lg:w-72">
+              <Heading size="xxs">Custo</Heading>
             </th>
-            <th className="w-52 text-left text-sm leading-relaxed text-zinc-200">
-              Imposto
+            <th className="p-6 text-left lg:w-52">
+              <Heading size="xxs">Imposto</Heading>
             </th>
-            <th className="w-52 text-left text-sm leading-relaxed text-zinc-200">
-              Receita
+            <th className="p-6 text-left lg:w-52">
+              <Heading size="xxs">Receita</Heading>
             </th>
-            <th className="w-52 text-left text-sm leading-relaxed text-zinc-200">
-              Lucro (R$)
+            <th className="p-6 text-left lg:w-52">
+              <Heading size="xxs">Lucro (R$)</Heading>
             </th>
-            <th className="w-52 p-4 text-left text-sm leading-relaxed text-zinc-200">
-              Margem
+            <th className="p-6 text-left lg:w-52">
+              <Heading size="xxs">Margem</Heading>
             </th>
           </tr>
         </thead>
@@ -147,7 +147,7 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
             return (
               <>
                 <tr key={announcement.ads_id}>
-                  <td className="flex w-96 flex-col p-4 text-left">
+                  <td className="w-96 p-6">
                     <div className="flex flex-col items-start gap-2">
                       <Heading className="text-left">
                         {announcement.name}
@@ -194,70 +194,62 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
                       </div>
                     </div>
                   </td>
-                  <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                    <Text>Total das vendas: {announcement.quantity}</Text>
-                    <Text>{formatCurrency(totalSales)}</Text>
+                  <td className="whitespace-nowrap p-6">
+                    <div className="flex flex-col items-start gap-2">
+                      <Text>Total das vendas: {announcement.quantity}</Text>
+
+                      <Text>{formatCurrency(totalSales)}</Text>
+                    </div>
                   </td>
-                  <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                    <div className="flex items-center gap-2">
+                  <td className="whitespace-nowrap p-6">
+                    <div className="flex flex-col items-start gap-2">
                       <Text>Tarifa: {formatCurrency(saleFee)}</Text>
-                    </div>
-                    <div className="flex items-center gap-2">
+
                       <Text>Frete Pago: {formatCurrency(shippingPay)}</Text>
-                    </div>
-                    <div className="flex items-center gap-2">
+
                       <Text>
                         Frete Desc: {formatCurrency(shippingDiscount)}
                       </Text>
                     </div>
                   </td>
-                  <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                    <div className="flex items-center gap-2">
+                  <td className="whitespace-nowrap p-6">
+                    <div className="flex flex-col items-start gap-2">
                       <Text>Custo Unitário: {formatCurrency(unitaryCost)}</Text>
-                    </div>
-                    <div className="flex items-center gap-2">
+
                       <Text>Custo Total: {formatCurrency(totalCost)}</Text>
                     </div>
                   </td>
-                  <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                    <div className="flex items-center gap-2">
-                      <Text>{formatCurrency(tax)}</Text>
-                    </div>
+                  <td className="items-start whitespace-nowrap p-6">
+                    <Text>{formatCurrency(tax)}</Text>
                   </td>
-                  <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                    <div className="flex items-center gap-2">
-                      <Text>{formatCurrency(revenue)}</Text>
-                    </div>
+                  <td className="items-start whitespace-nowrap p-6">
+                    <Text>{formatCurrency(revenue)}</Text>
                   </td>
-                  <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                    <div className="flex items-center gap-2">
+                  <td className="items-start whitespace-nowrap p-6">
+                    <Text
+                      className={clsx('font-bold', {
+                        'text-green-600': profit > 0,
+                        'text-red-600': profit < 0,
+                      })}
+                    >
+                      {formatCurrency(profit)}
+                    </Text>
+                  </td>
+                  <td className="whitespace-nowrap p-6">
+                    <div className="flex flex-col items-start gap-2">
                       <Text
                         className={clsx('font-bold', {
-                          'text-green-400': profit > 0,
-                          'text-red-400': profit < 0,
-                        })}
-                      >
-                        {formatCurrency(profit)}
-                      </Text>
-                    </div>
-                  </td>
-                  <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                    <div className="flex items-center gap-2">
-                      <Text
-                        className={clsx('font-bold', {
-                          'text-green-400': Number(mc) > 0,
-                          'text-red-400': Number(mc) < 0,
+                          'text-green-600': Number(mc) > 0,
+                          'text-red-600': Number(mc) < 0,
                         })}
                       >
                         MC: {mc}%
                       </Text>
-                    </div>
 
-                    <div className="flex items-center gap-2">
                       <Text
                         className={clsx('font-bold', {
-                          'text-green-400': Number(roi) > 0,
-                          'text-red-400': Number(roi) < 0,
+                          'text-green-600': Number(roi) > 0,
+                          'text-red-600': Number(roi) < 0,
                         })}
                       >
                         ROI: {roi}%
@@ -296,55 +288,68 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
 
                       return (
                         <tr key={order.order_id} className="bg-zinc-900">
-                          <td className="flex w-96 flex-col p-4 text-left">
+                          <td className="w-96 p-6">
                             <div className="flex flex-col items-start gap-2"></div>
                           </td>
-                          <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                            <Text>
-                              Valor: {formatCurrency(parseFloat(order.value))}
-                            </Text>
-                            <Text>Qtde: {order.quantity}</Text>
-                            <Text>
-                              Total: {formatCurrency(order.total_value)}
-                            </Text>
+                          <td className="whitespace-nowrap p-6">
+                            <div className="flex flex-col items-start gap-2">
+                              <Text>
+                                Valor: {formatCurrency(parseFloat(order.value))}
+                              </Text>
+
+                              <Text>Qtde: {order.quantity}</Text>
+
+                              <Text>
+                                Total: {formatCurrency(order.total_value)}
+                              </Text>
+                            </div>
                           </td>
-                          <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                            <Text>
-                              Tarifa: {formatCurrency(Number(saleFee))}
-                            </Text>
-                            <Text>
-                              Frete pago: {formatCurrency(Number(shippingPay))}
-                            </Text>
-                            <Text>
-                              Frete desc: {formatCurrency(shippingDiscount)}
-                            </Text>
+                          <td className="whitespace-nowrap p-6">
+                            <div className="flex flex-col items-start gap-2">
+                              <Text>
+                                Tarifa: {formatCurrency(Number(saleFee))}
+                              </Text>
+
+                              <Text>
+                                Frete pago:{' '}
+                                {formatCurrency(Number(shippingPay))}
+                              </Text>
+
+                              <Text>
+                                Frete desc: {formatCurrency(shippingDiscount)}
+                              </Text>
+                            </div>
                           </td>
-                          <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                            <Text>Unitário: {formatCurrency(unitaryCost)}</Text>
-                            <Text>Total: {formatCurrency(totalCost)}</Text>
+                          <td className="whitespace-nowrap p-6">
+                            <div className="flex flex-col items-start gap-2">
+                              <Text>
+                                Unitário: {formatCurrency(unitaryCost)}
+                              </Text>
+                              <Text>Total: {formatCurrency(totalCost)}</Text>
+                            </div>
                           </td>
-                          <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
+                          <td className="items-start whitespace-nowrap p-6">
                             <Text>{formatCurrency(tax)}</Text>
                           </td>
-                          <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
+                          <td className="items-start whitespace-nowrap p-6">
                             <Text>{formatCurrency(revenue)}</Text>
                           </td>
-                          <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
+                          <td className="items-start whitespace-nowrap p-6">
                             <Text
                               className={clsx('font-bold', {
-                                'text-green-400': profit > 0,
-                                'text-red-400': profit < 0,
+                                'text-green-600': profit > 0,
+                                'text-red-600': profit < 0,
                               })}
                             >
                               {formatCurrency(profit)}
                             </Text>
                           </td>
-                          <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                            <div className="flex items-center gap-2">
+                          <td className="whitespace-nowrap p-6">
+                            <div className="flex flex-col items-start gap-2">
                               <Text
                                 className={clsx('font-bold', {
-                                  'text-green-400': Number(mc) > 0,
-                                  'text-red-400': Number(mc) < 0,
+                                  'text-green-600': Number(mc) > 0,
+                                  'text-red-600': Number(mc) < 0,
                                 })}
                               >
                                 MC: {mc}%
@@ -354,8 +359,8 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
                             <div className="flex items-center gap-2">
                               <Text
                                 className={clsx('font-bold', {
-                                  'text-green-400': Number(mc) > 0,
-                                  'text-red-400': Number(mc) < 0,
+                                  'text-green-600': Number(mc) > 0,
+                                  'text-red-600': Number(mc) < 0,
                                 })}
                               >
                                 ROI: {roi}%
@@ -397,7 +402,7 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
 
                         return (
                           <tr key={order.order_id} className="bg-zinc-900">
-                            <td className="flex w-96 flex-col p-4 text-left">
+                            <td className="w-96 p-4">
                               <div className="flex flex-col items-start gap-2">
                                 <Text>
                                   Data: {dayjs(order.date).format('DD/MM/YYYY')}
@@ -409,66 +414,76 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
                                 <Text>SKU: {order.sku}</Text>
                               </div>
                             </td>
-                            <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                              <Text>
-                                Valor: {formatCurrency(parseFloat(order.value))}
-                              </Text>
-                              <Text>Qtde: {order.quantity}</Text>
-                              <Text>
-                                Total: {formatCurrency(order.total_value)}
-                              </Text>
+                            <td className="whitespace-nowrap p-6">
+                              <div className="flex flex-col items-start gap-2">
+                                <Text>
+                                  Valor:{' '}
+                                  {formatCurrency(parseFloat(order.value))}
+                                </Text>
+
+                                <Text>Qtde: {order.quantity}</Text>
+
+                                <Text>
+                                  Total: {formatCurrency(order.total_value)}
+                                </Text>
+                              </div>
                             </td>
-                            <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                              <Text>
-                                Tarifa: {formatCurrency(Number(saleFee))}
-                              </Text>
-                              <Text>
-                                Frete pago:{' '}
-                                {formatCurrency(Number(shippingPay))}
-                              </Text>
-                              <Text>
-                                Frete desc: {formatCurrency(shippingDiscount)}
-                              </Text>
+                            <td className="whitespace-nowrap p-6">
+                              <div className="flex flex-col items-start gap-2">
+                                <Text>
+                                  Tarifa: {formatCurrency(Number(saleFee))}
+                                </Text>
+
+                                <Text>
+                                  Frete pago:{' '}
+                                  {formatCurrency(Number(shippingPay))}
+                                </Text>
+
+                                <Text>
+                                  Frete desc: {formatCurrency(shippingDiscount)}
+                                </Text>
+                              </div>
                             </td>
-                            <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                              <Text>
-                                Unitário: {formatCurrency(unitaryCost)}
-                              </Text>
-                              <Text>Total: {formatCurrency(totalCost)}</Text>
+                            <td className="whitespace-nowrap p-6">
+                              <div className="flex flex-col items-start gap-2">
+                                <Text>
+                                  Unitário: {formatCurrency(unitaryCost)}
+                                </Text>
+
+                                <Text>Total: {formatCurrency(totalCost)}</Text>
+                              </div>
                             </td>
-                            <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
+                            <td className="items-start whitespace-nowrap p-6">
                               <Text>{formatCurrency(tax)}</Text>
                             </td>
-                            <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
+                            <td className="items-start whitespace-nowrap p-6">
                               <Text>{formatCurrency(revenue)}</Text>
                             </td>
-                            <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
+                            <td className="items-start whitespace-nowrap p-6">
                               <Text
                                 className={clsx('font-bold', {
-                                  'text-green-400': profit > 0,
-                                  'text-red-400': profit < 0,
+                                  'text-green-600': profit > 0,
+                                  'text-red-600': profit < 0,
                                 })}
                               >
                                 {formatCurrency(profit)}
                               </Text>
                             </td>
-                            <td className="p-4 text-left text-sm leading-relaxed text-zinc-200">
-                              <div className="flex items-center gap-2">
+                            <td className="whitespace-nowrap p-6">
+                              <div className="flex flex-col items-start gap-2">
                                 <Text
                                   className={clsx('font-bold', {
-                                    'text-green-400': Number(mc) > 0,
-                                    'text-red-400': Number(mc) < 0,
+                                    'text-green-600': Number(mc) > 0,
+                                    'text-red-600': Number(mc) < 0,
                                   })}
                                 >
                                   MC: {mc}%
                                 </Text>
-                              </div>
 
-                              <div className="flex items-center gap-2">
                                 <Text
                                   className={clsx('font-bold', {
-                                    'text-green-400': Number(roi) > 0,
-                                    'text-red-400': Number(roi) < 0,
+                                    'text-green-600': Number(roi) > 0,
+                                    'text-red-600': Number(roi) < 0,
                                   })}
                                 >
                                   ROI: {roi}%
