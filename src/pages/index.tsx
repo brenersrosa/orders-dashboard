@@ -51,6 +51,7 @@ export default function Home({
     useState<Announcement[]>(announcementsData)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [dataCount, setDataCount] = useState(0)
 
   const { showToast } = useToast()
 
@@ -68,7 +69,8 @@ export default function Home({
 
   useEffect(() => {
     setTotalPages(Math.ceil(totalCount / 5))
-  }, [totalCount])
+    setDataCount(Math.ceil(totalCount / totalPages))
+  }, [totalCount, totalPages])
 
   async function handleSearch(data: SearchFormData) {
     try {
@@ -92,7 +94,7 @@ export default function Home({
         },
       })
 
-      setTotalPages(Math.ceil(response.data.length / 5))
+      setTotalPages(Math.ceil(response.headers['x-total-count'] / 5))
 
       if (response.data.length === 0) {
         showToast('Falha!', 'Dado não encontrado.', 'error')
@@ -136,6 +138,7 @@ export default function Home({
       },
     })
     setAnnouncements(response.data)
+    setDataCount(response.headers['x-total-count'])
   }
 
   async function handlePreviousPage(data: SearchFormData) {
@@ -161,6 +164,7 @@ export default function Home({
       },
     })
     setAnnouncements(response.data)
+    setDataCount(Math.ceil(response.headers['x-total-count'] / totalPages))
   }
 
   async function handleClearForm() {
@@ -171,60 +175,73 @@ export default function Home({
   }
 
   return (
-    <div className="flex min-h-screen flex-col gap-6 p-10">
+    <div className="flex min-h-screen flex-col gap-6 p-6 md:p-8 lg:p-10">
       <Summary />
 
       <Box className="flex-col gap-8 bg-zinc-800">
         <form
           onSubmit={handleSubmit(handleSearch)}
-          className="flex items-end gap-4"
+          className="grid grid-cols-1 items-end gap-4 lg:grid-cols-4"
         >
-          <div className="grid grid-cols-3 gap-4">
-            <Input
-              label="Nome"
-              placeholder="Filtrar por nome"
-              {...register('name')}
-            />
-
-            <Input
-              label="SKU"
-              placeholder="Filtrar por SKU"
-              {...register('sku')}
-            />
-
-            <Input
-              label="MBL"
-              placeholder="Filtrar por MBL"
-              {...register('mbl')}
-            />
-          </div>
-
-          <Button icon={MagnifyingGlass} isLoading={isSubmitting} />
-
-          <Button
-            variant="destructive"
-            icon={TrashSimple}
-            onClick={handleClearForm}
-            type="button"
+          <Input
+            label="Nome"
+            placeholder="Buscar por nome"
+            {...register('name')}
           />
+
+          <Input
+            label="SKU"
+            placeholder="Buscar por SKU"
+            {...register('sku')}
+          />
+
+          <Input
+            label="MBL"
+            placeholder="Buscar por MBL"
+            {...register('mbl')}
+          />
+
+          <div className="grid grid-cols-1 items-center gap-4 lg:grid-cols-2">
+            <Button
+              icon={MagnifyingGlass}
+              iconPosition="left"
+              isLoading={isSubmitting}
+            >
+              Buscar
+            </Button>
+
+            <Button
+              variant="destructive"
+              icon={TrashSimple}
+              iconPosition="left"
+              onClick={handleClearForm}
+              type="button"
+            >
+              Limpar
+            </Button>
+          </div>
         </form>
 
-        <div className="flex items-center justify-end gap-4">
-          <Text>
-            {currentPage} / {totalPages}
-          </Text>
+        <div className="flex flex-col items-center justify-between gap-2 md:flex-row">
+          <Text>Resultados exibidos: {`${dataCount} de ${totalCount}`}</Text>
 
-          <Button
-            onClick={() => handlePreviousPage(data)}
-            icon={ArrowLeft}
-            disabled={currentPage <= 1}
-          />
+          <div className="flex items-center justify-between gap-4">
+            <Button
+              onClick={() => handlePreviousPage(data)}
+              icon={ArrowLeft}
+              disabled={currentPage <= 1}
+            />
 
-          <Button
-            onClick={() => handleNextPage(data)}
-            icon={ArrowRight}
-            disabled={currentPage === totalPages}
-          />
+            <Text>
+              Página: {currentPage} / {totalPages}
+            </Text>
+
+            <Button
+              onClick={() => handleNextPage(data)}
+              icon={ArrowRight}
+              disabled={currentPage === totalPages}
+            />
+          </div>
         </div>
 
         <TableDashboard announcements={announcements} />

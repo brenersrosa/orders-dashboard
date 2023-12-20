@@ -84,7 +84,7 @@ export function Summary() {
 
   return (
     <>
-      <div className="grid grid-cols-3 items-center justify-between gap-6">
+      <div className="grid grid-cols-1 items-center justify-between gap-6 lg:grid-cols-3">
         <CardSummary
           title="Vendas"
           value={totalSales}
@@ -107,7 +107,7 @@ export function Summary() {
         />
       </div>
 
-      <div className="flex gap-8">
+      <div className="flex flex-col gap-8 md:flex-row">
         <div>
           <Text>Unidades vendidas:</Text>
           <Heading>{totalUnitsSold} un.</Heading>

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-  @apply w-1 bg-zinc-900 rounded-full;
+  @apply w-1 h-1 bg-zinc-900 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb {
