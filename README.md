@@ -4,10 +4,7 @@ This project aims to showcase the application created for the front-end selectio
 
 ## Screenshots
 
-| Mobile | Tablet | Desktop |
-|--------|--------|---------|
-| ![Mobile](https://github.com/brenersrosa/orders-dashboard/blob/main/public/screenshots/mobile.png) | ![Tablet](https://github.com/brenersrosa/orders-dashboard/blob/main/public/screenshots/tablet.png) | ![Desktop](https://github.com/brenersrosa/orders-dashboard/blob/main/public/screenshots/desktop.png) |
-
+![alt text](https://github.com/brenersrosa/orders-dashboard/blob/main/public/screenshots/screenshot.png)
 
 ## Requirements
 
