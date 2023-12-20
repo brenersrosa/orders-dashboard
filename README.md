@@ -1,5 +1,3 @@
-# Marvel App
-
 ## Description
 
 This project aims to showcase the application created for the front-end selection process, where the challenge is to develop a responsive web application that will consume an API to display the visualization of sales and advertising data on a dashboard.
