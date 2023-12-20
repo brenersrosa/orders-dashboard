@@ -167,25 +167,29 @@ export function TableDashboard({ announcements }: TableDashboardProps) {
                           onClick={() =>
                             handleToggleMode(announcement.ads_id, 'group')
                           }
-                          className={clsx('', {
+                          className={clsx('min-w-[8rem]', {
                             'bg-opacity-50': mode
                               ? mode[announcement.ads_id] === 'group'
                               : '',
                           })}
                         >
-                          Agrupado
+                          {mode && mode[announcement.ads_id] === 'group'
+                            ? 'Ocultar'
+                            : 'Agrupado'}
                         </Button>
                         <Button
                           onClick={() =>
                             handleToggleMode(announcement.ads_id, 'detail')
                           }
-                          className={clsx('', {
+                          className={clsx('min-w-[8rem]', {
                             'bg-opacity-50': mode
                               ? mode[announcement.ads_id] === 'detail'
                               : '',
                           })}
                         >
-                          Detalhado
+                          {mode && mode[announcement.ads_id] === 'detail'
+                            ? 'Ocultar'
+                            : 'Detalhado'}
                         </Button>
                       </div>
                     </div>

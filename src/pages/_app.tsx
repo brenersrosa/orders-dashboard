@@ -7,6 +7,8 @@ import { Exo, Nunito } from 'next/font/google'
 
 import { queryClient } from '@/lib/react-query'
 
+import { ToastProvider } from '@/contexts/ToastContext'
+
 const exo = Exo({ subsets: ['latin'], variable: '--font-exo' })
 
 const nunito = Nunito({
@@ -20,7 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
       className={`${exo.variable} ${nunito.variable} bg-zinc-950 font-sans`}
     >
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <ToastProvider>
+          <Component {...pageProps} />
+        </ToastProvider>
       </QueryClientProvider>
     </main>
   )
